@@ -1,0 +1,29 @@
+{extend name="public/base" /}
+
+{block name="title"}角色列表{/block}
+{block name="main"}
+<header class="panel-heading">
+    角色列表
+</header>
+<div class="panel-body">
+    <table class="table  table-hover general-table">
+        <thead>
+        <tr>
+            <th>角色名称</th>
+            <th>操作</th>
+        </tr>
+        </thead>
+        <tbody>
+        {foreach $roles as $val}
+        <tr>
+            <td>{$val.name}</td>
+            <td>
+                <a href="">编辑</a>
+                <a href="">删除</a>
+            </td>
+        </tr>
+        {/foreach}
+        </tbody>
+    </table>
+</div>
+{/block}

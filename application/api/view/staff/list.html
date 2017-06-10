@@ -1,0 +1,52 @@
+{extend name="public/base" /}
+
+{block name="title"}员工列表{/block}
+{block name="main"}
+<header class="panel-heading">
+    员工列表
+</header>
+<div class="panel-body">
+    <table class="table  table-hover general-table">
+        <thead>
+        <tr>
+            <th>用户名</th>
+            <th>昵称</th>
+            <th>性别</th>
+            <th>状态</th>
+            <th>最后登录时间</th>
+            <th>操作</th>
+        </tr>
+        </thead>
+        <tbody>
+        {foreach $users as $val}
+        <tr>
+            <td>
+                <a href="#">
+                    {$val.username}
+                </a>
+            </td>
+            <td>{$val.nickname}</td>
+            <td>
+                {if condition="$val.gender == 1"}男
+                {elseif condition="$val.gender == 2"/}女
+                {else /}未知
+                {/if}
+            </td>
+            <td>
+                {if condition="$val.is_freeze == 0"}
+                <span class="label label-success label-mini">正常</span>
+                {elseif condition="$val.is_freeze == 1"/}
+                <span class="label label-danger label-mini">冻结</span>
+                {/if}
+            </td>
+            <td>{$val.login_time}</td>
+            <td>
+                <a href="">编辑</a>
+                <a href="">删除</a>
+            </td>
+        </tr>
+        {/foreach}
+        </tbody>
+    </table>
+</div>
+{/block}

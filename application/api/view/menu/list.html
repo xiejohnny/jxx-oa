@@ -1,0 +1,49 @@
+{extend name="public/base" /}
+
+{block name="title"}菜单列表{/block}
+{block name="main"}
+<header class="panel-heading">
+    菜单列表
+</header>
+<div class="panel-body">
+    <table class="table  table-hover general-table">
+        <thead>
+        <tr>
+            <th>菜单名称</th>
+            <th>操作</th>
+        </tr>
+        </thead>
+        <tbody>
+        {foreach $list as $item}
+        <tr>
+            <td><i class="fa fa-plus-square"></i> {$item.name}</td>
+            <td>
+                <a href="">编辑</a>
+                <a href="">删除</a>
+            </td>
+        </tr>
+            {foreach $item['son'] as $value}
+            <tr>
+                <td>&nbsp;<i class="fa fa-angle-right"></i> {$value.name}</td>
+                <td>
+                    <a href="">编辑</a>
+                    <a href="">删除</a>
+                </td>
+            </tr>
+                {if $value['son']}
+                    {foreach $value['son'] as $val}
+                    <tr>
+                        <td>&nbsp;&nbsp;<i class="fa fa-angle-right"></i> {$val.name}</td>
+                        <td>
+                            <a href="{:url('menu/edit',['id'=>$val.id])}">编辑</a>
+                            <a href="">删除</a>
+                        </td>
+                    </tr>
+                    {/foreach}
+                {/if}
+            {/foreach}
+        {/foreach}
+        </tbody>
+    </table>
+</div>
+{/block}
