@@ -21,7 +21,7 @@ class LoginValidate extends Validate
     ];
 
     protected $scene = [
-        'login'   =>  [
+        'login' => [
             'username'  => 'require|min:5|max:20',
             'password'  => 'require|min:6|max:20',
             'client_id' => 'require|max:40',

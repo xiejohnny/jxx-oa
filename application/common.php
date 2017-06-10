@@ -44,6 +44,24 @@ function check_password($password='', $salt='', $dbPassword='')
 }
 
 /**
+ * 生成密码
+ * @param string $password 密码
+ * @param string $salt 盐
+ * @return bool
+ * @author jxx
+ * @time 2017/6/10
+ */
+function create_password($password='', $salt='')
+{
+    return md5(md5(md5($password).$salt).$salt);
+}
+
+function create_salt()
+{
+    return substr(md5(time().mt_rand(10000,99999)), 15, 4);
+}
+
+/**
  * 递归分类
  * @param array $array 源数据
  * @param int $pid 父级ID

@@ -25,6 +25,7 @@ class Menu extends BaseController
         }
         output_json(20400, '没有数据');
     }
+
     /**
      * 获取菜单信息
      * @author jxx

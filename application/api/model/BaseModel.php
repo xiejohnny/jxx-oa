@@ -52,4 +52,38 @@ class BaseModel extends Model
     {
         return self::all()->toArray();
     }
+
+    /**
+     * 添加一条数据
+     * @param array $postData 提交参数
+     * @return bool|array
+     * @author jxx
+     * @time 2017/6/10
+     */
+    static public function addRow($postData=[])
+    {
+        $postData['created_at'] = date('Y-m-d H:i:s');
+        $postData['updated_at'] = date('Y-m-d H:i:s');
+        $class = static::class;
+        $insert = new $class($postData);
+        $insert->allowField(true)->save();
+        return $insert ? $insert : false;
+    }
+
+    /**
+     * 修改一条数据
+     * @param int $id 主键ID
+     * @param array $postData 修改数据
+     * @return bool
+     * @author jxx
+     * @time 2017/6/10
+     */
+    static public function updateRowById($id=0, $postData=[])
+    {
+        $postData['updated_at'] = date('Y-m-d H:i:s');
+        $class = static::class;
+        $insert = new $class();
+        $insert->allowField(true)->save($postData, ['id' => $id]);
+        return $insert ? true : false;
+    }
 }
