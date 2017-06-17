@@ -1,0 +1,54 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="Cache-Control" content="no-siteapp" />
+    <link rel="alternate icon" type="image/png" href="/assets/i/favicon.png">
+    <link rel="stylesheet" href="/assets/css/amazeui.min.css"/>
+    <title>Jxx - OA系统</title>
+</head>
+
+<body>
+<div class="am-g">
+    <div class="am-u-lg-6 am-u-md-8 am-u-sm-centered">
+        <h3>登录</h3>
+        <hr>
+        <form method="post" class="am-form" id="loginForm">
+            <label>用户名:</label>
+            <input type="text" name="username" value="">
+            <br>
+            <label>密码:</label>
+            <input type="password" name="password" id="password" value="">
+            <br>
+            <label>
+                <input id="remember-me" type="checkbox">
+                记住密码
+            </label>
+            <br />
+            <div class="am-cf">
+                <input type="button" value="登 录" class="am-btn am-btn-primary am-btn-sm am-fl btn-login">
+                <input type="button" value="忘记密码 ^_^? " class="am-btn am-btn-default am-btn-sm am-fr">
+            </div>
+            <input type="hidden" name="client_id" value="180645f285e744e03a8aed39cf6a306e">
+        </form>
+    </div>
+</div>
+
+<script src="/assets/js/jquery-1.10.2.min.js"></script>
+<script src="/assets/js/jquery.cookie.js"></script>
+<script src="/assets/js/amazeui.min.js"></script>
+<script src="/assets/js/app.js"></script>
+<script type="text/javascript">
+$(function(){
+    $('.btn-login').click(function(){
+        $_api.doLogin();
+    });
+});
+</script>
+</body>
+</html>

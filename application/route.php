@@ -10,24 +10,27 @@
 // +----------------------------------------------------------------------
 use think\Route;
 
-//首页
-Route::rule('/','front/Index/index');
-//登录
-Route::rule('/login','front/Index/login');
-
-//后台
-/*
-//员工控制器
-Route::controller('staff','admin/Staff');
-//角色控制器
-Route::controller('role','admin/Role');
-//菜单控制器*/
-//Route::controller('menu','api/Menu');
-
-
-
+//接口
 $uri = $_SERVER['PATH_INFO'];
 $uriArr = explode('/', trim($uri, '/'));
-Route::group($uriArr[0], [
-    $uriArr[1] => ['api'.$uri],
-]);
+if(request()->method() == 'POST'){
+    Route::group($uriArr[0], [
+        $uriArr[1] => ['api'.$uri],
+    ]);
+}
+
+
+
+//Route::miss('public/miss');
+
+//前端
+if(request()->method() == 'GET') {
+    Route::rule('/', function () {
+        include APP_PATH . 'front/view/index.html';
+        exit;
+    });
+    Route::rule(':name', function ($name) {
+        include APP_PATH . 'front/view/' . $name . '.html';
+        exit;
+    });
+}
