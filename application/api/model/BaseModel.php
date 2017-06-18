@@ -7,6 +7,7 @@
 namespace app\api\model;
 
 use think\Model;
+use think\DB;
 
 class BaseModel extends Model
 {
@@ -44,13 +45,35 @@ class BaseModel extends Model
 
     /**
      * 获取数据列表
+     * @param array $where 条件
+     * @param int $page 页数
+     * @param int $pagesize 每页条数
      * @return array
      * @author jxx
      * @time 2017/4/2
      */
-    static public function getList()
+    static public function getList($where=[], $page=0, $pagesize=10)
     {
-        return self::all()->toArray();
+        $class = static::class;
+        $object = new $class();
+        $data = Db::table($object->table)->order('id DESC');
+        if($page > 0){
+            $data = $data->page($page, $pagesize);
+        }
+        return $data->select();
+    }
+
+    /**
+     * 获取数据总数
+     * @return array
+     * @author jxx
+     * @time 2017/6/18
+     */
+    static public function getCount()
+    {
+        $class = static::class;
+        $object = new $class();
+        return Db::table($object->table)->count();
     }
 
     /**

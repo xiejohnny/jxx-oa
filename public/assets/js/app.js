@@ -11,6 +11,12 @@
             $fullText.text($.AMUI.fullscreen.isFullscreen ? '退出全屏' : '开启全屏');
         });
     });
+    
+    var compiled = {};
+    $.fn.handlebars = function(template, data) {
+        compiled[template] = Handlebars.compile(template);
+        this.html(compiled[template](data));
+    };
 })(jQuery);
 
 
@@ -81,6 +87,7 @@ var $_api = (function(){
                 if(res.code !== 20000){
                     alert(res.msg);
                 }else{
+                    $('#my-hd-nickname').html(res.data.nickname);
                     var list = res.data.menu_list;
                     var html = '<li><a href="/"><span class="am-icon-home"></span> 首页</a></li>';
                     for(var i in list){
@@ -96,6 +103,18 @@ var $_api = (function(){
                     }
                     $('#admin-offcanvas .admin-sidebar-list').html(html);
                 }
+            });
+        },
+        /**
+         * 获取员工列表
+         * @param cbfn 回调函数
+         * @author jxx
+         * @time 2017/6/18
+         */
+        getStaffList : function(cbfn)
+        {
+            this.doAjax('/staff/getList', {access_token:$.cookie('access_token')}, function(res){
+                cbfn(res);
             });
         }
     };

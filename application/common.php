@@ -83,3 +83,17 @@ function get_tree($array=[], $pid = 0){
     }
     return $arr;
 }
+
+/**
+ * 加载html模版
+ * @param string $view 模版名称
+ * @author jxx
+ * @time 2017/6/18
+ */
+function load_view($view='')
+{
+    if(!file_exists(APP_PATH . 'front/view/' . $view . '.html')){
+        exit(include APP_PATH . 'front/view/404.html');
+    }
+    exit(include APP_PATH . 'front/view/' . $view . '.html');
+}

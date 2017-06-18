@@ -17,10 +17,11 @@ class Staff extends BaseController
      */
     public function getList()
     {
-        $list = Users::getList();
+        $list = Users::getList([], 1, 10);
+        $total = Users::getCount();
 
         if($list){
-            output_json(20000, '', $list);
+            output_json(20000, '', ['list' => $list, 'total' => $total]);
         }
         output_json(20400, '没有数据');
     }

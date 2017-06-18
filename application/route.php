@@ -25,12 +25,14 @@ if(request()->method() == 'POST'){
 
 //前端
 if(request()->method() == 'GET') {
-    Route::rule('/', function () {
+    Route::rule('/$', function () {
         include APP_PATH . 'front/view/index.html';
         exit;
     });
-    Route::rule(':name', function ($name) {
-        include APP_PATH . 'front/view/' . $name . '.html';
-        exit;
+    Route::rule(':name$', function ($name) {
+        load_view($name);
+    });
+    Route::rule(':path/:name$', function ($path, $name) {
+        load_view($path.'/'.$name);
     });
 }

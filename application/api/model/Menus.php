@@ -16,9 +16,9 @@ class Menus extends BaseModel
      * @author jxx
      * @time 2017/4/3
      */
-	static public function getList()
+	static public function getMenuList()
 	{
-		return Menus::order('pid', 'ASC')->select()->toArray();
+		return Menus::order('pid', 'ASC')->select();
 	}
 
     /**
@@ -31,7 +31,7 @@ class Menus extends BaseModel
     {
         //当前链接
         $reqPath = '/'.request()->path();
-        $list = Menus::getList();
+        $list = Menus::getMenuList();
         $list = Menus::menusHandle($list, $reqPath);
         return $list;
     }
