@@ -24,6 +24,7 @@ if(request()->method() == 'POST'){
 //Route::miss('public/miss');
 
 //前端
+/*
 if(request()->method() == 'GET') {
     Route::rule('/$', function () {
         include APP_PATH . 'front/view/index.html';
@@ -36,3 +37,4 @@ if(request()->method() == 'GET') {
         load_view($path.'/'.$name);
     });
 }
+*/
