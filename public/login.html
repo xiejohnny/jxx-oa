@@ -54,11 +54,19 @@
 <script src="/assets/js/jquery.cookie.js"></script>
 <script src="/assets/js/amazeui.min.js"></script>
 <script src="/assets/js/common.js"></script>
-<script src="/assets/js/app.js"></script>
 <script type="text/javascript">
 $(function(){
     $('.btn-login').click(function(){
-        $_api.doLogin();
+        $.post('/user/login', $('#loginForm').serialize(), function(res){
+            if(res.code !== 20000){
+                alert(res.msg);
+            }else{
+                $.cookie('access_token', res.data.access_token, {expires:30, path: '/'});
+                $.cookie('expires_time', res.data.expires_time, {expires:30, path: '/'});
+                alert('登录成功');
+                window.location.href = '/index.html';
+            }
+        });
     });
 });
 </script>

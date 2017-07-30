@@ -17,11 +17,14 @@ class Staff extends BaseController
      */
     public function getList()
     {
-        $list = Users::getList([], 1, 10);
+        $postData = request()->post();
+        $page = $postData['page'] ? $postData['page'] : 1;
+        $pagesize = 10;
+        $list = Users::getList([], $page, $pagesize);
         $total = Users::getCount();
 
         if($list){
-            output_json(20000, '', ['list' => $list, 'total' => $total]);
+            output_json(20000, '', ['list' => $list, 'pagesize' => $pagesize, 'total' => $total]);
         }
         output_json(20400, '没有数据');
     }
@@ -37,7 +40,7 @@ class Staff extends BaseController
         $info = Users::getRowById($postData['id']);
 
         if($info){
-            output_json(20000, '', $info);
+            output_json(20000, '', ['info'=>$info]);
         }
         output_json(20400, '没有数据');
     }
@@ -81,9 +84,11 @@ class Staff extends BaseController
         {
             output_json(40000, $validate->getError());
         }
-        //员工信息
-        $info = Users::getRowById($postData['id']);
-        $postData['password'] = create_password($postData['password'], $info['salt']);
+        //修改密码
+        if($postData['password']){
+            $info = Users::getRowById($postData['id']);
+            $postData['password'] = create_password($postData['password'], $info['salt']);
+        }
         $update = Users::updateRowById($postData['id'], $postData);
 
         if($update){

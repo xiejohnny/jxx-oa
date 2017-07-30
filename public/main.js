@@ -7,12 +7,13 @@ require.config({
 		'amazeui':['/assets/js/amazeui.min'],
 		'template':['/assets/js/template-web'],
         
-        'staff':['/m/staff']
+        'staff':['/m/staff'],
+        'pagination':['/assets/js/amazeui.page']
 	},
 	shim:{
 		'common':{
 			deps:['jquery', 'jquery-cookie', 'amazeui']
-		},
+		}
 	}
 });
 
@@ -38,11 +39,30 @@ require(['jquery', 'jquery-cookie', 'template', 'common', 'staff'], function(jqu
         });
     });
     
-    var compiled = {};
-    $.fn.handlebars = function(template, data) {
-        compiled[template] = Handlebars.compile(template);
-        this.html(compiled[template](data));
-    };
+    //JQ扩展方法
+    $.extend({
+        /**
+         * 异步请求
+         * @param url 请求地址
+         * @param postData 请求参数
+         * @param cbfn 回调函数
+         * @param method 请求方法 默认POST
+         * @author jxx
+         * @time 2017/4/2
+         */
+        doAjax : function (url, postData, cbfn, method) {
+            method = method || 'POST';
+            $.ajax({
+                url: url,
+                type: method,
+                data: postData,
+                dataType: 'json',
+                success: function (res) {
+                    cbfn(res);
+                }
+            });
+        }
+    });
     
 	$(window).on('hashchange', hashChange);
 	$(window).trigger('hashchange', 1);
@@ -59,6 +79,23 @@ require(['jquery', 'jquery-cookie', 'template', 'common', 'staff'], function(jqu
 		if(hash){
 			directory = hash.replace(/#!(([^!]*)!)?/ig, '');
 		}
+		//获取url参数
+        window.$glbUrlParams = {};
+		var tmp = window.location.hash.match(/#![^!]*!/);
+		if(tmp && tmp[0]){
+            var paramsStr = tmp[0].substring(2, tmp[0].length-1);
+            if(paramsStr){
+                var paramsArr = paramsStr.split('&');
+                var params = {};
+                for(var i in paramsArr){
+                    var t = paramsArr[i].split('=');
+                    params[t[0]] = t[1];
+                }
+                if(params){
+                    window.$glbUrlParams = params;
+                }
+            }
+        }
 		require(['c/' + directory], function(fn){
 			$glbTpl.undelegate();
 			$(window).scrollTop(0);

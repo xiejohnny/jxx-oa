@@ -1,0 +1,123 @@
+<div class="admin-content">
+    <div class="admin-content-body">
+        <div class="am-cf am-padding am-padding-bottom-0">
+            <div class="am-fl am-cf">
+                <strong class="am-text-primary am-text-lg">员工</strong> /
+                <small>员工信息</small>
+            </div>
+        </div>
+
+        <hr>
+
+        <form action="" class="am-form">
+        <div class="am-tabs am-margin" data-am-tabs="">
+            <ul class="am-tabs-nav am-nav am-nav-tabs">
+                <li class="am-active"><a href="#tab1">基本信息</a></li>
+            </ul>
+
+            <div class="am-tabs-bd" style="touch-action: pan-y; user-select: none; -webkit-user-drag: none; -webkit-tap-highlight-color: rgba(0, 0, 0, 0);">
+
+                <div class="am-tab-panel am-fade am-active am-in" id="tab1">
+
+                        <div class="am-g am-margin-top">
+                            <div class="am-u-sm-4 am-u-md-2 am-text-right">
+                                头像
+                            </div>
+                            <div class="am-u-sm-8 am-u-md-4 am-u-end">
+                                <img src="{{info.avatar}}">
+                                <div class="am-form-group am-form-file"><button type="button" class="am-btn am-btn-default am-btn-sm"><i class="am-icon-cloud-upload"></i> 选择要上传的文件</button> <input type="file" name="avatar"></div>
+                            </div>
+                        </div>
+
+                        <div class="am-g am-margin-top">
+                            <div class="am-u-sm-4 am-u-md-2 am-text-right">
+                                用户名
+                            </div>
+                            <div class="am-u-sm-8 am-u-md-4 am-u-end">
+                                {{info.username}}
+                            </div>
+                        </div>
+
+                        <div class="am-g am-margin-top">
+                            <div class="am-u-sm-4 am-u-md-2 am-text-right">
+                                昵称
+                            </div>
+                            <div class="am-u-sm-8 am-u-md-4 am-u-end">
+                                <input type="text" class="am-input-sm" name="nickname" value="{{info.nickname}}" maxlength="50">
+                            </div>
+                        </div>
+
+                        <div class="am-g am-margin-top">
+                            <div class="am-u-sm-4 am-u-md-2 am-text-right">
+                                性别
+                            </div>
+                            <div class="am-u-sm-8 am-u-md-4 am-u-end">
+                                <div class="am-btn-group" data-am-button="" id="input-gender">
+                                    <label class="am-btn am-btn-primary am-btn-xs {{info.gender==0?'am-active':''}}">
+                                        <input type="radio" name="gender" value="0"> 未知
+                                    </label>
+                                    <label class="am-btn am-btn-primary am-btn-xs {{info.gender==1?'am-active':''}}">
+                                        <input type="radio" name="gender" value="1"> 男
+                                    </label>
+                                    <label class="am-btn am-btn-primary am-btn-xs {{info.gender==2?'am-active':''}}">
+                                        <input type="radio" name="gender" value="2"> 女
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="am-g am-margin-top">
+                            <div class="am-u-sm-4 am-u-md-2 am-text-right">
+                                冻结
+                            </div>
+                            <div class="am-u-sm-8 am-u-md-4 am-u-end">
+                                <div class="am-btn-group" data-am-button="" id="input-is_freeze">
+                                    <label class="am-btn am-btn-primary am-btn-xs {{info.is_freeze==0?'am-active':''}}">
+                                        <input type="radio" name="is_freeze" value="0"> 否
+                                    </label>
+                                    <label class="am-btn am-btn-primary am-btn-xs {{info.is_freeze==1?'am-active':''}}">
+                                        <input type="radio" name="is_freeze" value="1"> 是
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="am-g am-margin-top">
+                            <div class="am-u-sm-4 am-u-md-2 am-text-right">
+                                最后登录IP
+                            </div>
+                            <div class="am-u-sm-8 am-u-md-4 am-u-end">
+                                {{info.login_ip}}
+                            </div>
+                        </div>
+
+                        <div class="am-g am-margin-top">
+                            <div class="am-u-sm-4 am-u-md-2 am-text-right">
+                                最后登录时间
+                            </div>
+                            <div class="am-u-sm-8 am-u-md-4 am-u-end">
+                                {{info.login_time}}
+                            </div>
+                        </div>
+
+                        <div class="am-g am-margin-top">
+                            <div class="am-u-sm-4 am-u-md-2 am-text-right">
+                                注册时间
+                            </div>
+                            <div class="am-u-sm-8 am-u-md-4 am-u-end">
+                                {{info.created_at}}
+                            </div>
+                        </div>
+                        <input type="hidden" name="id" value="{{info.id}}">
+                </div>
+
+            </div>
+        </div>
+
+        <div class="am-margin">
+            <button type="button" class="am-btn am-btn-primary am-btn-xs" id="js-submitBtn">提交保存</button>
+            <button type="button" class="am-btn am-btn-default am-btn-xs" onclick="window.location.href='#!staff/list'">返回</button>
+        </div>
+        </form>
+    </div>
+</div>

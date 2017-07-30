@@ -39,9 +39,9 @@ class StaffValidate extends Validate
         //编辑员工
         'edit' => [
             'id'        => 'require|integer|checkId',
-            'username'  => 'require|min:5|max:20|checkUsername:edit',
+            'username'  => 'min:5|max:20|checkUsername:edit',
             'nickname'  => 'max:50',
-            'password'  => 'require|min:6|max:20',
+            'password'  => 'min:6|max:20',
             'gender'    => 'in:0,1,2',
             'avatar'    => 'max:250',
         ],
@@ -62,6 +62,7 @@ class StaffValidate extends Validate
      */
     protected function checkUsername($value='', $rule='', $data=[])
     {
+        if(!$value) return true;
         $row = Users::getInfoByUsername($value);
         if($rule == 'add'){
             return $row ? false : true;

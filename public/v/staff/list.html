@@ -1,7 +1,7 @@
 <div class="admin-content">
     <div class="admin-content-body">
         <div class="am-cf am-padding am-padding-bottom-0">
-            <div class="am-fl am-cf"><strong class="am-text-primary am-text-lg">员工</strong> / <small>员工列表</small></div>
+            <div class="am-fl am-cf"><strong class="am-text-primary am-text-lg">员工列表</strong> / <small>Staff</small></div>
         </div>
 
         <hr>
@@ -60,7 +60,7 @@
                     <tr>
                         <td><input type="checkbox" /></td>
                         <td>{{value.id}}</td>
-                        <td><a href="#">{{value.username}}</a></td>
+                        <td><a href="#!id={{value.id}}!staff/edit">{{value.username}}</a></td>
                         <td>{{value.nickname}}</td>
                         <td>{{@value.is_freeze==1 ? '<span class="am-badge">冻结</span>' : '<span class="am-badge am-badge-success">正常</span>'}}</td>
                         <td>{{value.gender==0 ? '未知' : (value.gender==1 ? '男' : '女')}}</td>
@@ -68,9 +68,7 @@
                         <td>
                             <div class="am-btn-toolbar">
                                 <div class="am-btn-group am-btn-group-xs">
-                                    <button class="am-btn am-btn-default am-btn-xs am-text-secondary"><span class="am-icon-pencil-square-o"></span> 编辑</button>
-                                    <button class="am-btn am-btn-default am-btn-xs am-hide-sm-only"><span class="am-icon-copy"></span> 复制</button>
-                                    <button class="am-btn am-btn-default am-btn-xs am-text-danger am-hide-sm-only"><span class="am-icon-trash-o"></span> 删除</button>
+                                    <button class="am-btn am-btn-default am-btn-xs am-text-secondary" onclick="window.location.href='#!id={{value.id}}!staff/edit'"><span class="am-icon-pencil-square-o"></span> 编辑</button>
                                 </div>
                             </div>
                         </td>
@@ -82,13 +80,7 @@
                     共 {{total}} 条记录
                     <div class="am-fr">
                         <ul class="am-pagination">
-                            <li class="am-disabled"><a href="#">«</a></li>
-                            <li class="am-active"><a href="#">1</a></li>
-                            <li><a href="#">2</a></li>
-                            <li><a href="#">3</a></li>
-                            <li><a href="#">4</a></li>
-                            <li><a href="#">5</a></li>
-                            <li><a href="#">»</a></li>
+
                         </ul>
                     </div>
                 </div>
