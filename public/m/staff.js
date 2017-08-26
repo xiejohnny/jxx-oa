@@ -97,6 +97,23 @@ define([], function()
                         cbfn(res);
                     }
                 });
+            },
+            /**
+             * 添加员工
+             * @param postData 提交数据
+             * @param cbfn 回调函数
+             * @author jxx
+             * @time 2017/8/26
+             */
+            addStaff : function(postData, cbfn){
+                postData = $.extend(postData, {access_token:$.cookie('access_token')});
+                $.doAjax('/staff/add', postData, function(res){
+                    if(res.code !== 20000){
+                        alert_msg(res.msg);
+                    }else{
+                        cbfn(res);
+                    }
+                });
             }
         };
     })();

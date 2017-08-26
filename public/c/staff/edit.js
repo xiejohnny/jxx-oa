@@ -18,7 +18,7 @@ define(['staff', 'text!v/staff/edit.html'], function(staffModel, pageHTML)
                         postData[arr[i].name] = arr[i].value;
                     }
                     staffModel.updateStaffInfo(postData, function(updateRes){
-                        alert_msg(updateRes.msg);
+                        alert_msg(updateRes.msg, '', '#!staff/list');
                     });
                 });
             });

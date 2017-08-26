@@ -3,7 +3,7 @@
         <div class="am-cf am-padding am-padding-bottom-0">
             <div class="am-fl am-cf">
                 <strong class="am-text-primary am-text-lg">员工</strong> /
-                <small>员工信息</small>
+                <small>员工编辑信息</small>
             </div>
         </div>
 
@@ -87,7 +87,7 @@
                                 最后登录IP
                             </div>
                             <div class="am-u-sm-8 am-u-md-4 am-u-end">
-                                {{info.login_ip}}
+                                {{info.login_ip || '-'}}
                             </div>
                         </div>
 
@@ -96,7 +96,7 @@
                                 最后登录时间
                             </div>
                             <div class="am-u-sm-8 am-u-md-4 am-u-end">
-                                {{info.login_time}}
+                                {{info.login_time || '-'}}
                             </div>
                         </div>
 

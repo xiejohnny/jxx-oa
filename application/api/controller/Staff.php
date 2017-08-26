@@ -60,7 +60,9 @@ class Staff extends BaseController
         {
             output_json(40000, $validate->getError());
         }
+        if(!$postData['nickname']) $postData['nickname'] = $postData['username'];
         $postData['salt'] = create_salt();
+        $postData['password'] = create_password($postData['password'], $postData['salt']);
         $add = Users::addRow($postData);
 
         if($add){
