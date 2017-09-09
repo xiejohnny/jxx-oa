@@ -13,8 +13,6 @@ class BaseModel extends Model
 {
 	protected $resultSetType = 'collection';
 
-	static public $_returns = [];
-
     /**
      * 获取一条数据
      * @param array $where 条件
@@ -56,11 +54,18 @@ class BaseModel extends Model
     {
         $class = static::class;
         $object = new $class();
-        $data = Db::table($object->table)->order('id DESC');
-        if($page > 0){
-            $data = $data->page($page, $pagesize);
+        $data = Db::table($object->table);
+        if($where){
+            $data = $data->where($where);
         }
-        return $data->select();
+        $data = $data->order('id DESC');
+        if($page > 0){
+            $data = $data->paginate(['page' => $page, 'list_rows' => $pagesize]);
+            if($data) $data = $data->toArray();
+        }else{
+            $data = $data->select();
+        }
+        return $data;
     }
 
     /**

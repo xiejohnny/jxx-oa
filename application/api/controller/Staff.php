@@ -19,12 +19,10 @@ class Staff extends BaseController
     {
         $postData = request()->post();
         $page = $postData['page'] ? $postData['page'] : 1;
-        $pagesize = 10;
-        $list = Users::getList([], $page, $pagesize);
-        $total = Users::getCount();
+        $list = Users::getList($postData['keyword'], $page);
 
         if($list){
-            output_json(20000, '', ['list' => $list, 'pagesize' => $pagesize, 'total' => $total]);
+            output_json(20000, '', ['list' => $list['data'], 'pagesize' => $list['per_page'], 'total' => $list['total']]);
         }
         output_json(20400, '没有数据');
     }
