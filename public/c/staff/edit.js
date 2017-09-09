@@ -1,4 +1,4 @@
-define(['staff', 'text!v/role/edit.html'], function(staffModel, pageHTML)
+define(['staff', 'text!v/staff/edit.html'], function(staffModel, pageHTML)
 {
 	return {
 		render : function(){
