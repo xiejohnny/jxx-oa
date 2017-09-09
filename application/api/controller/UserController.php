@@ -9,9 +9,9 @@ use app\api\validate\LoginValidate;
 use app\api\model\Users;
 use app\api\model\Clients;
 use app\api\model\AccessTokens;
-use app\api\model\Menus;
+use app\api\model\Menu;
 
-class User extends BaseController
+class UserController extends BaseController
 {
     /**
      * 登录
@@ -83,7 +83,7 @@ class User extends BaseController
             output_json(40103, '登录信息不存在');
         }
         //菜单列表
-        $menuList = Menus::getHandleList();
+        $menuList = Menu::getHandleList();
         $menuList = get_tree($menuList);
         $userInfo['menu_list'] = $menuList;
         output_json(20000, '成功', $userInfo);

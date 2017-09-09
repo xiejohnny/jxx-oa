@@ -1,50 +1,51 @@
 <?php
 /**
- * 员工控制器
+ * 角色控制器
  * @author jxx
- * @time 2017/4/2
+ * @time 2017/4/4
  */
 namespace app\api\controller;
-use app\api\model\Users;
-use app\api\validate\StaffValidate;
+use app\api\model\Role;
+use app\api\validate\RoleValidate;
 
-class Staff extends BaseController
+class RoleController extends BaseController
 {
     /**
-     * 员工列表
+     * 角色列表
      * @author jxx
-     * @time 2017/4/2
+     * @time 2017/4/4
      */
     public function getList()
     {
         $postData = request()->post();
         $page = $postData['page'] ? $postData['page'] : 1;
-        $list = Users::getList($postData['keyword'], $page);
+        $list = Role::getList($postData['keyword'], $page);
 
         if($list){
-            output_json(20000, '', ['list' => $list['data'], 'pagesize' => $list['per_page'], 'total' => $list['total']]);
+            output_json(20000, '成功', ['list' => $list['data'], 'pagesize' => $list['per_page'], 'total' => $list['total']]);
         }
+
         output_json(20400, '没有数据');
     }
 
     /**
-     * 获取员工信息
+     * 获取角色信息
      * @author jxx
      * @time 2017/6/10
      */
-    public function getInfo()
+        public function getInfo()
     {
         $postData = request()->post();
-        $info = Users::getRowById($postData['id']);
+        $info = Role::getRowById($postData['id']);
 
         if($info){
-            output_json(20000, '', ['info'=>$info]);
+            output_json(20000, '成功', $info);
         }
         output_json(20400, '没有数据');
     }
 
     /**
-     * 添加员工
+     * 添加角色
      * @author jxx
      * @time 2017/6/10
      */
@@ -52,16 +53,13 @@ class Staff extends BaseController
     {
         $postData = request()->post();
         //请求参数验证
-        $validate = new StaffValidate($postData);
+        $validate = new RoleValidate($postData);
         $result = $validate->scene('add')->check($postData);
         if(true !== $result)
         {
             output_json(40000, $validate->getError());
         }
-        if(!$postData['nickname']) $postData['nickname'] = $postData['username'];
-        $postData['salt'] = create_salt();
-        $postData['password'] = create_password($postData['password'], $postData['salt']);
-        $add = Users::addRow($postData);
+        $add = Role::addRow($postData);
 
         if($add){
             output_json(20000, '添加成功', ['id' => $add['id']]);
@@ -70,7 +68,7 @@ class Staff extends BaseController
     }
 
     /**
-     * 编辑员工
+     * 编辑角色
      * @author jxx
      * @time 2017/6/10
      */
@@ -78,18 +76,13 @@ class Staff extends BaseController
     {
         $postData = request()->post();
         //请求参数验证
-        $validate = new StaffValidate($postData);
+        $validate = new RoleValidate($postData);
         $result = $validate->scene('edit')->check($postData);
         if(true !== $result)
         {
             output_json(40000, $validate->getError());
         }
-        //修改密码
-        if($postData['password']){
-            $info = Users::getRowById($postData['id']);
-            $postData['password'] = create_password($postData['password'], $info['salt']);
-        }
-        $update = Users::updateRowById($postData['id'], $postData);
+        $update = Role::updateRowById($postData['id'], $postData);
 
         if($update){
             output_json(20000, '修改成功');
@@ -98,25 +91,25 @@ class Staff extends BaseController
     }
 
     /**
-     * 冻结员工
+     * 删除角色
      * @author jxx
      * @time 2017/6/10
      */
-    public function freeze()
+    public function delete()
     {
         $postData = request()->post();
         //请求参数验证
-        $validate = new StaffValidate($postData);
-        $result = $validate->scene('freeze')->check($postData);
+        $validate = new RoleValidate($postData);
+        $result = $validate->scene('del')->check($postData);
         if(true !== $result)
         {
             output_json(40000, $validate->getError());
         }
-        $update = Users::updateRowById($postData['id'], ['is_freeze' => 1]);
+        $update = Role::updateRowById($postData['id'], ['is_del' => 1]);
 
         if($update){
-            output_json(20000, '冻结成功');
+            output_json(20000, '删除成功');
         }
-        output_json(43000, '冻结失败');
+        output_json(43000, '删除失败');
     }
 }

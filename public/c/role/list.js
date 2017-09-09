@@ -1,21 +1,20 @@
-define(['staff', 'pagination', 'text!v/staff/list.html'], function(staffModel, pagination, pageHTML)
+define(['role', 'pagination', 'text!v/role/list.html'], function(roleModel, pagination, pageHTML)
 {
 
 	return {
 		render : function(){
-            
             function pageInit()
             {
                 var page = $glbUrlParams['page'] ? $glbUrlParams['page'] : 1;
                 var keyword = $glbUrlParams['keyword'] || '';
-                staffModel.getStaffList({page:page,keyword:keyword}, function(data){
+                roleModel.getRoleList({page:page,keyword:keyword}, function(data){
                     //渲染页面
                     $glbTpl.html($glbArtTpl.render(pageHTML, {list:data.list, total:data.total}));
                     //分页处理
                     $('.am-pagination').page({
                         pages:Math.ceil(data.total / data.pagesize),
                         curr:page,
-                        jump:'#!page=%page%&keyword=' + keyword + '!staff/list'
+                        jump:'#!page=%page%&keyword=' + keyword + '!role/list'
                     });
                     $('.input-search').val(keyword);
                 });
@@ -29,7 +28,7 @@ define(['staff', 'pagination', 'text!v/staff/list.html'], function(staffModel, p
              */
             $glbTpl.delegate('.btn-search', 'click', function(){
                 var keyword = $('.input-search').val();
-                window.location.href = '#!keyword=' + keyword + '!staff/list';
+                window.location.href = '#!keyword=' + keyword + '!role/list';
             });
 		}
 	};

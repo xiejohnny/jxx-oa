@@ -5,9 +5,9 @@
  * @time 2017/4/9
  */
 namespace app\api\controller;
-use app\api\model\Menus;
+use app\api\model\Menu;
 
-class Menu extends BaseController
+class MenuController extends BaseController
 {
     var $is_ajax = true;
     /**
@@ -17,7 +17,7 @@ class Menu extends BaseController
      */
     public function getList()
     {
-        $list = Menus::getHandleList();
+        $list = Menu::getHandleList();
         $list = get_tree($list);
 
         if($list){
@@ -34,7 +34,7 @@ class Menu extends BaseController
     public function getInfo()
     {
         $postData = request()->post();
-        $info = Menus::getRowById($postData['id']);
+        $info = Menu::getRowById($postData['id']);
 
         if($info){
             output_json(20000, '', $info);

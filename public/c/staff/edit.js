@@ -1,13 +1,13 @@
-define(['staff', 'text!v/staff/edit.html'], function(staffModel, pageHTML)
+define(['staff', 'text!v/role/edit.html'], function(staffModel, pageHTML)
 {
 	return {
 		render : function(){
 			var id = window.$glbUrlParams.id;
 			staffModel.getStaffInfo(id, function(data){
 			    //渲染页面
-                $glbTpl.html($glbArtTpl.render(pageHTML, {info:data.info}));
+                $glbTpl.html($glbArtTpl.render(pageHTML, {info:data}));
                 //提交按钮
-                $('#js-submitBtn').on('click', function(){
+                $glbTpl.delegate('#js-submitBtn', 'click', function(){
                     var form = $(this).parents('form');
                     var arr = form.serializeArray();
                     var postData = {

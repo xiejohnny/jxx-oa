@@ -8,6 +8,7 @@ require.config({
 		'template':['/assets/js/template-web'],
         
         'staff':['/m/staff'],
+        'role':['/m/role'],
         'pagination':['/assets/js/amazeui.page']
 	},
 	shim:{
@@ -23,7 +24,7 @@ requirejs.onError = function (err) {
 	}else if (err.requireType === 'scripterror') {
 		console.log('文件不存在：'+err.requireModules);
 	}
-	// throw err;
+	throw err;
 };
 
 require(['jquery', 'jquery-cookie', 'template', 'common', 'staff'], function(jquery,cookie,template,common,staffModel)
@@ -38,6 +39,20 @@ require(['jquery', 'jquery-cookie', 'template', 'common', 'staff'], function(jqu
             $fullText.text($.AMUI.fullscreen.isFullscreen ? '退出全屏' : '开启全屏');
         });
     });
+    
+    $.prototype.serializeObject = function() {
+        var a, o, h, i, e;
+        a = this.serializeArray();
+        o = {};
+        h = o.hasOwnProperty;
+        for (i = 0; i < a.length; i++) {
+            e = a[i];
+            if (!h.call(o, e.name)) {
+                o[e.name] = e.value;
+            }
+        }
+        return o;
+    };
     
     //JQ扩展方法
     $.extend({

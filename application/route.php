@@ -15,7 +15,7 @@ $uri = $_SERVER['PATH_INFO'];
 $uriArr = explode('/', trim($uri, '/'));
 if(request()->method() == 'POST'){
     Route::group($uriArr[0], [
-        $uriArr[1] => ['api'.$uri],
+        $uriArr[1] => ['api/'.$uriArr[0].'Controller/'.$uriArr[1]],
     ]);
 }
 

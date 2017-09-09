@@ -1,7 +1,7 @@
 <?php
 namespace app\api\validate;
 use think\Validate;
-use app\api\model\Roles;
+use app\api\model\Role;
 
 class RoleValidate extends Validate
 {
@@ -47,7 +47,7 @@ class RoleValidate extends Validate
      */
     protected function checkName($value='', $rule='', $data=[])
     {
-        $row = Roles::getInfoByName($value);
+        $row = Role::getInfoByName($value);
         if($rule == 'add'){
             return $row ? false : true;
         }elseif($rule == 'edit'){
@@ -67,7 +67,7 @@ class RoleValidate extends Validate
      */
     protected function checkId($value=0)
     {
-        $row = Roles::getRowById($value);
+        $row = Role::getRowById($value);
         return $row ? true : false;
     }
 }

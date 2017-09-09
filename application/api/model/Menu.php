@@ -6,9 +6,9 @@
  */
 namespace app\api\model;
 
-class Menus extends BaseModel
+class Menu extends BaseModel
 {
-    protected $table = 'menus';
+    protected $table = 'menu';
 
     /**
      * 获取菜单列表
@@ -18,7 +18,7 @@ class Menus extends BaseModel
      */
 	static public function getMenuList()
 	{
-		return Menus::order('pid', 'ASC')->select();
+		return Menu::order('pid', 'ASC')->select();
 	}
 
     /**
@@ -31,8 +31,8 @@ class Menus extends BaseModel
     {
         //当前链接
         $reqPath = '/'.request()->path();
-        $list = Menus::getMenuList();
-        $list = Menus::menusHandle($list, $reqPath);
+        $list = Menu::getMenuList();
+        $list = Menu::menusHandle($list, $reqPath);
         return $list;
     }
 
@@ -49,7 +49,7 @@ class Menus extends BaseModel
         foreach($menus as $key=>$val){
             if($val['url'] == $reqPath){
                 $menus[$key]['js_active'] = 1;
-                $menus = Menus::setPidActice($menus, $val['pid']);
+                $menus = Menu::setPidActice($menus, $val['pid']);
             }
         }
         return $menus;
@@ -68,7 +68,7 @@ class Menus extends BaseModel
         foreach($menus as $key=>$val){
             if($val['id'] == $pid){
                 $menus[$key]['js_active'] = 1;
-                return Menus::setPidActice($menus, $val['pid']);
+                return Menu::setPidActice($menus, $val['pid']);
             }
         }
         return $menus;
