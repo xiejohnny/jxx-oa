@@ -41,4 +41,20 @@ class Role extends BaseModel
         $data = parent::getList($where, $page, $pagesize);
         return $data;
     }
+
+    /**
+     * 根据角色ID获取角色信息
+     * @param int $id 角色ID
+     * @return array
+     * @author jxx
+     * @time 2017/10/3
+     */
+    static public function getRowById($id=0)
+    {
+        $row = parent::getRowById($id);
+        if($row){
+            $row['menu_code'] = explode(',', $row['menu_code']);
+        }
+        return $row;
+    }
 }

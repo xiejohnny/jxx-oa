@@ -9,11 +9,16 @@ require.config({
         
         'staff':['/m/staff'],
         'role':['/m/role'],
-        'pagination':['/assets/js/amazeui.page']
+        'menu':['/m/menu'],
+        'pagination':['/assets/js/amazeui.page'],
+        'ztree':['/assets/js/jquery.ztree.all.min']
 	},
 	shim:{
 		'common':{
 			deps:['jquery', 'jquery-cookie', 'amazeui']
+		},
+		'ztree':{
+			deps:['jquery']
 		}
 	}
 });

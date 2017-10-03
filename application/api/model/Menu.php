@@ -18,7 +18,7 @@ class Menu extends BaseModel
      */
 	static public function getMenuList()
 	{
-		return Menu::order('pid', 'ASC')->select();
+		return Menu::getList();
 	}
 
     /**
