@@ -38,6 +38,7 @@ class BaseModel extends Model
     {
         $row = self::get(['id'=>$id]);
         if($row) return $row->toArray();
+
         return [];
     }
 
@@ -99,7 +100,7 @@ class BaseModel extends Model
     }
 
     /**
-     * 修改一条数据
+     * 根据ID修改一条数据
      * @param int $id 主键ID
      * @param array $postData 修改数据
      * @return bool
@@ -112,6 +113,23 @@ class BaseModel extends Model
         $class = static::class;
         $insert = new $class();
         $insert->allowField(true)->save($postData, ['id' => $id]);
+        return $insert ? true : false;
+    }
+
+    /**
+     * 修改一条数据
+     * @param array $where 条件
+     * @param array $postData 修改数据
+     * @return bool
+     * @author jxx
+     * @time 2017/10/4
+     */
+    static public function updateRow($where=[], $postData=[])
+    {
+        $postData['updated_at'] = date('Y-m-d H:i:s');
+        $class = static::class;
+        $insert = new $class();
+        $insert->allowField(true)->save($postData, $where);
         return $insert ? true : false;
     }
 }

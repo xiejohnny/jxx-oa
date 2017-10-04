@@ -19,7 +19,8 @@ class RoleController extends BaseController
     {
         $postData = request()->post();
         $page = $postData['page'] ? $postData['page'] : 1;
-        $list = Role::getList($postData['keyword'], $page);
+        $pagesize = $postData['pagesize'] ? $postData['pagesize'] : 10;
+        $list = Role::getList($postData['keyword'], $page, $pagesize);
 
         if($list){
             output_json(20000, '成功', ['list' => $list['data'], 'pagesize' => $list['per_page'], 'total' => $list['total']]);

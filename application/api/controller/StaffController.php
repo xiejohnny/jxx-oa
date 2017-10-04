@@ -5,6 +5,7 @@
  * @time 2017/4/2
  */
 namespace app\api\controller;
+use app\api\model\UserRole;
 use app\api\model\Users;
 use app\api\validate\StaffValidate;
 
@@ -35,7 +36,7 @@ class StaffController extends BaseController
     public function getInfo()
     {
         $postData = request()->post();
-        $info = Users::getRowById($postData['id']);
+        $info = Users::getInfoById($postData['id']);
 
         if($info){
             output_json(20000, '', $info);
@@ -64,6 +65,8 @@ class StaffController extends BaseController
         $add = Users::addRow($postData);
 
         if($add){
+            //关联角色
+            UserRole::relateUserRole($add['id'], $postData['roleid']);
             output_json(20000, '添加成功', ['id' => $add['id']]);
         }
         output_json(43000, '添加失败');
@@ -92,6 +95,8 @@ class StaffController extends BaseController
         $update = Users::updateRowById($postData['id'], $postData);
 
         if($update){
+            //关联角色
+            UserRole::relateUserRole($postData['id'], $postData['roleid']);
             output_json(20000, '修改成功');
         }
         output_json(43000, '修改失败');

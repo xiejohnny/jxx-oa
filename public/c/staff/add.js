@@ -1,9 +1,12 @@
-define(['staff', 'text!v/staff/add.html'], function(staffModel, pageHTML)
+define(['staff', 'role', 'text!v/staff/add.html'], function(staffModel, roleModel, pageHTML)
 {
 	return {
 		render : function(){
-            //渲染页面
-            $glbTpl.html($glbArtTpl.render(pageHTML));
+		    roleModel.getRoleList({pagesize:1000}, function(roleData){
+		        var roleList = roleData.list;
+                //渲染页面
+                $glbTpl.html($glbArtTpl.render(pageHTML, {roleList:roleList}));
+            });
             //提交按钮
             $glbTpl.delegate('#js-submitBtn', 'click', function(){
                 var form = $(this).parents('form');

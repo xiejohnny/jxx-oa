@@ -23,6 +23,24 @@ class Users extends BaseModel
         return $row;
     }
 
+
+    /**
+     * 根据用户ID获取用户信息
+     * @param int $userid 用户ID
+     * @return array
+     * @author jxx
+     * @time 2017/10/4
+     */
+    static public function getInfoById($userid=0)
+    {
+        $row = parent::getRowById($userid);
+        if(!$row) return [];
+        $userRole = UserRole::getRowByUserId($userid);
+        $row['roleid'] = $userRole['id'];
+        $row['role_info'] = $userRole;
+        return $row;
+    }
+
     /**
      * 获取员工列表
      * @param string $keyword 搜索关键字

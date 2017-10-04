@@ -82,6 +82,20 @@
                             </div>
                         </div>
                     </div>
+
+                    <div class="am-g am-margin-top">
+                        <div class="am-u-sm-4 am-u-md-2 am-text-right">
+                            角色
+                        </div>
+                        <div class="am-u-sm-8 am-u-md-4 am-u-end">
+                            <select name="roleid">
+                                <option value="">请选择</option>
+                                {{each roleList value i}}
+                                    <option value="{{value.id}}">{{value.name}}</option>
+                                {{/each}}
+                            </select>
+                        </div>
+                    </div>
                 </div>
 
             </div>
