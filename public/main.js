@@ -89,6 +89,7 @@ require(['jquery', 'jquery-cookie', 'template', 'common', 'staff'], function(jqu
 	//全局变量
 	window.$glbTpl = $('#template');
 	window.$glbArtTpl = template;
+	window.$glbTokenInfo = null;
 
     staffModel.checkLogined();
 

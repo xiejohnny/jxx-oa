@@ -6,21 +6,22 @@
  */
 namespace app\api\model;
 
-class Clients extends BaseModel
+class Client extends BaseModel
 {
+    protected $table = 'client';
+
     /**
      * 添加客户
      * @param string $name 客户名称
-     * @return bool
+     * @return bool|string
      * @author jxx
      * @time 2017/4/2
      */
     static public function addClient($name='')
     {
         //查看是否已存在
-        $row = Clients::getClientByName($name);
+        $row = Client::getClientByName($name);
         if($row){
-            self::setReturns(1, 'client已存在');
             return false;
         }
         $postData = [
@@ -28,13 +29,11 @@ class Clients extends BaseModel
             'secret' => md5(time().mt_rand(1000,9999)),
             'name'   => $name,
         ];
-        $user = new Clients($postData);
-        $user->allowField(true)->save();
-        if($user->id){
-            self::setReturns(0, 'success', ['id' => $user->id]);
-            return true;
+        $client = new Client($postData);
+        $client->allowField(true)->save();
+        if($client->id){
+            return $client->id;
         }
-        self::setReturns(2, '添加失败');
         return false;
     }
 
@@ -47,7 +46,7 @@ class Clients extends BaseModel
      */
     static public function getClientByName($name='')
     {
-        $row = Clients::getRow(['name' => $name]);
+        $row = Client::getRow(['name' => $name]);
         return $row;
     }
 }

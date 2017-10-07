@@ -9,7 +9,7 @@ class BaseController extends Controller
     public function __construct()
     {
         parent::__construct();
-        if(request()->controller() != 'User')
+        if(request()->controller() != 'UserController')
         {
             $accessToken = request()->post()['access_token'];
             if(!$accessToken)
@@ -28,7 +28,7 @@ class BaseController extends Controller
                 output_json(40102, '令牌过期');
             }
             //获取用户信息
-            $userInfo = Users::getRowById($tokenInfo['userid']);
+            $userInfo = Users::getInfoById($tokenInfo['userid']);
             if(!$userInfo)
             {
                 output_json(40103, '登录信息不存在');

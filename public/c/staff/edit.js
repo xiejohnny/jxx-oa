@@ -6,8 +6,10 @@ define(['staff', 'role', 'text!v/staff/edit.html'], function(staffModel, roleMod
 			staffModel.getStaffInfo(id, function(data){
                 roleModel.getRoleList({pagesize:1000}, function(roleData){
                     var roleList = roleData.list;
+                    //按钮权限
+                    var editBtn = check_action_power('staff_edit');
                     //渲染页面
-                    $glbTpl.html($glbArtTpl.render(pageHTML, {info:data, roleList:roleList}));
+                    $glbTpl.html($glbArtTpl.render(pageHTML, {info:data, roleList:roleList, editBtn:editBtn}));
                 });
                 //提交按钮
                 $glbTpl.delegate('#js-submitBtn', 'click', function(){

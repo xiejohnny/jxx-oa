@@ -27,6 +27,7 @@ define([], function()
                     if(res.code !== 20000){
                         alert_msg(res.msg);
                     }else{
+                        window.$glbTokenInfo = res.data;
                         $('#my-hd-nickname').html(res.data.nickname);
                         var list = res.data.menu_list;
                         var html = '<li><a href="/index.html"><span class="am-icon-home"></span> 首页</a></li>';

@@ -89,7 +89,7 @@ class StaffController extends BaseController
         }
         //修改密码
         if($postData['password']){
-            $info = Users::getRowById($postData['id']);
+            $info = Users::getInfoById($postData['id']);
             $postData['password'] = create_password($postData['password'], $info['salt']);
         }
         $update = Users::updateRowById($postData['id'], $postData);

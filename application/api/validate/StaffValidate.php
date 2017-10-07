@@ -85,7 +85,7 @@ class StaffValidate extends Validate
      */
     protected function checkId($value=0)
     {
-        $row = Users::getRowById($value);
+        $row = Users::getInfoById($value);
         return $row ? true : false;
     }
 }

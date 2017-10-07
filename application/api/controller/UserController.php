@@ -7,7 +7,7 @@
 namespace app\api\controller;
 use app\api\validate\LoginValidate;
 use app\api\model\Users;
-use app\api\model\Clients;
+use app\api\model\Client;
 use app\api\model\AccessTokens;
 use app\api\model\Menu;
 
@@ -30,7 +30,7 @@ class UserController extends BaseController
             output_json(40000, $validate->getError());
         }
         //获取客户信息
-        $clientInfo = Clients::getRowById($postData['client_id']);
+        $clientInfo = Client::getRowById($postData['client_id']);
         if(!$clientInfo)
         {
             output_json(42000, '客户不存在');
@@ -77,7 +77,7 @@ class UserController extends BaseController
             output_json(40102, '令牌过期');
         }
         //获取用户信息
-        $userInfo = Users::getRowById($tokenInfo['userid']);
+        $userInfo = Users::getInfoById($tokenInfo['userid']);
         if(!$userInfo)
         {
             output_json(40103, '登录信息不存在');

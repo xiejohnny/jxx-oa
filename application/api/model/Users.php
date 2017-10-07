@@ -20,6 +20,10 @@ class Users extends BaseModel
 	static public function getInfoByUsername($username='')
     {
         $row = Users::getRow(['username' => $username]);
+        if(!$row) return [];
+        $userRole = UserRole::getRowByUserId($row['id']);
+        $row['roleid'] = $userRole['id'];
+        $row['role_info'] = $userRole;
         return $row;
     }
 
