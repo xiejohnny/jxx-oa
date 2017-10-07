@@ -44,8 +44,12 @@
                             菜单权限
                         </div>
                         <div class="am-u-sm-8 am-u-md-4 am-u-end">
-                            <ul id="js-menuTree" class="ztree"></ul>
-                            <ul id="code" class="log" style="height:20px;"></ul>
+                            {{if info.is_super == 1}}
+                                全部
+                            {{else}}
+                                <ul id="js-menuTree" class="ztree"></ul>
+                                <ul id="code" class="log" style="height:20px;"></ul>
+                            {{/if}}
                         </div>
                     </div>
                     <input type="hidden" name="id" value="{{info.id}}">

@@ -22,9 +22,14 @@ class BaseModel extends Model
      */
 	static public function getRow($where=[])
     {
-        $row = self::get($where);
-        if($row) return $row->toArray();
-        return [];
+        $class = static::class;
+        $object = new $class();
+        $data = Db::table($object->table);
+        if(isset($object->baseWhere) && $object->baseWhere){
+            $where = array_merge($object->baseWhere, $where);
+        }
+        $row = $data->where($where)->find();
+        return $row;
     }
 
     /**
@@ -36,10 +41,8 @@ class BaseModel extends Model
      */
 	static public function getRowById($id=0)
     {
-        $row = self::get(['id'=>$id]);
-        if($row) return $row->toArray();
-
-        return [];
+        $row = self::getRow(['id' => $id]);
+        return $row;
     }
 
     /**
@@ -56,6 +59,9 @@ class BaseModel extends Model
         $class = static::class;
         $object = new $class();
         $data = Db::table($object->table);
+        if(isset($object->baseWhere) && $object->baseWhere){
+            $where = array_merge($object->baseWhere, $where);
+        }
         if($where){
             $data = $data->where($where);
         }
@@ -67,19 +73,6 @@ class BaseModel extends Model
             $data = $data->select();
         }
         return $data;
-    }
-
-    /**
-     * 获取数据总数
-     * @return array
-     * @author jxx
-     * @time 2017/6/18
-     */
-    static public function getCount()
-    {
-        $class = static::class;
-        $object = new $class();
-        return Db::table($object->table)->count();
     }
 
     /**

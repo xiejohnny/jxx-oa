@@ -9,6 +9,7 @@ namespace app\api\model;
 class Role extends BaseModel
 {
     protected $table = 'role';
+    protected $baseWhere = ['is_del' => 0];
 
     /**
      * 根据角色名称获取角色信息

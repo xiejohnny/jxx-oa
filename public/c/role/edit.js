@@ -4,10 +4,13 @@ define(['role', 'menu', 'text!v/role/edit.html', 'ztree'], function(roleModel, m
 		render : function(){
 			var id = window.$glbUrlParams.id;
 			var thisZtree = null;
+            //是否超管
+			var isSuper = 0;
 			//获取角色信息
 			roleModel.getRoleInfo(id, function(roleInfo){
 			    //获取菜单列表
                 menuModel.getMenuList({}, function(menuList){
+                    isSuper = roleInfo.is_super;
                     //渲染页面
                     $glbTpl.html($glbArtTpl.render(pageHTML, {info:roleInfo}));
                     //角色权限
@@ -54,7 +57,9 @@ define(['role', 'menu', 'text!v/role/edit.html', 'ztree'], function(roleModel, m
                         thisZtree.setting.check.chkboxType = { "Y":'', "N":''};
                     }
                     //菜单权限初始化
-                    zTree_init();
+                    if(isSuper != 1){
+                        zTree_init();
+                    }
                 });
             });
             
@@ -73,9 +78,10 @@ define(['role', 'menu', 'text!v/role/edit.html', 'ztree'], function(roleModel, m
             //提交按钮
             $glbTpl.delegate('#js-submitBtn', 'click', function(){
                 var form = $(this).parents('form');
-                var checked = get_checked();
                 var postData = form.serializeObject();
-                postData.menu_code = checked;
+                if(isSuper != 1) {
+                    postData.menu_code = get_checked();
+                }
                 roleModel.updateRoleInfo(postData, function(updateRes){
                     alert_msg(updateRes.msg, '', '#!role/list');
                 });
