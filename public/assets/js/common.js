@@ -2,10 +2,27 @@ function alert_msg(title, content, href)
 {
     $('#alert-modal .row-title').html(title || '');
     $('#alert-modal .row-content').html(content || '');
-    $('#alert-modal').modal();
-    if(href){
-        $('#alert-modal').on('closed.modal.amui', function(){
+    var $confirm = $('#alert-modal');
+    var confirm = $confirm.data('amui.modal');
+    var onConfirm = function() {
+        if(href){
             window.location.href = href;
+        }
+    };
+    var onCancel = function() {
+        if(href){
+            window.location.href = href;
+        }
+    };
+    //每次重新绑定，解决 onConfirm/onCancel 会保存第一次运行 Modal 时候的数据，导致在某些场景不能按照预期工作
+    if (confirm) {
+        confirm.options.onConfirm = onConfirm;
+        confirm.toggle(this);
+    } else {
+        $confirm.modal({
+            closeViaDimmer: false,
+            relatedElement: this,
+            onConfirm: onConfirm
         });
     }
 }

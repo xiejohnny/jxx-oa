@@ -12,14 +12,14 @@ class UserRole extends BaseModel
 
     /**
      * 根据用户ID获取角色信息
-     * @param int $userid 用户ID
+     * @param int $userId 用户ID
      * @return array
      * @author jxx
      * @time 2017/10/4
      */
-    static public function getRowByUserId($userid=0)
+    static public function getRowByUserId($userId=0)
     {
-        $row = parent::getRow(['userid' => $userid]);
+        $row = parent::getRow(['userid' => $userId]);
         if(!$row) return [];
         $roleInfo = Role::getRowById($row['roleid']);
         return $roleInfo;
@@ -35,7 +35,7 @@ class UserRole extends BaseModel
      */
     static public function relateUserRole($userId=0, $roleid=0)
     {
-        $isset = UserRole::getRowByUserId($userId);
+        $isset = UserRole::getRow(['userid' => $userId]);
         if($isset){
             UserRole::updateRow(['userid' => $userId], ['roleid' => $roleid]);
         }else{
