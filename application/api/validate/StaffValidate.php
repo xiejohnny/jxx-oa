@@ -11,7 +11,7 @@ class StaffValidate extends Validate
         'password'  => 'min:6|max:20',
         'nickname'  => 'max:50',
         'gender'    => 'in:0,1,2',
-        'avatar'    => 'max:250',
+        'avatar'    => 'image',
     ];
 
     protected $message = [
@@ -34,7 +34,7 @@ class StaffValidate extends Validate
             'nickname'  => 'max:50',
             'password'  => 'require|min:6|max:20',
             'gender'    => 'in:0,1,2',
-            'avatar'    => 'max:250',
+            'avatar'    => 'image',
             'roleid'    => 'integer',
         ],
         //编辑员工
@@ -44,7 +44,7 @@ class StaffValidate extends Validate
             'nickname'  => 'max:50',
             'password'  => 'min:6|max:20',
             'gender'    => 'in:0,1,2',
-            'avatar'    => 'max:250',
+            'avatar'    => 'image',
             'roleid'    => 'integer',
         ],
         //冻结员工

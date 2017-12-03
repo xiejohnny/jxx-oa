@@ -90,14 +90,13 @@ define([], function()
              */
             updateStaffInfo : function(postData, cbfn)
             {
-                postData = $.extend(postData, {access_token:$.cookie('access_token')});
                 $.doAjax('/staff/edit', postData, function(res){
                     if(res.code !== 20000){
                         alert_msg(res.msg);
                     }else{
                         cbfn(res);
                     }
-                });
+                }, 'POST', {processData : false,cache: false,contentType: false});
             },
             /**
              * 添加员工
@@ -107,14 +106,13 @@ define([], function()
              * @time 2017/8/26
              */
             addStaff : function(postData, cbfn){
-                postData = $.extend(postData, {access_token:$.cookie('access_token')});
                 $.doAjax('/staff/add', postData, function(res){
                     if(res.code !== 20000){
                         alert_msg(res.msg);
                     }else{
                         cbfn(res);
                     }
-                });
+                }, 'POST', {processData : false,cache: false,contentType: false});
             }
         };
     })();

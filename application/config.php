@@ -236,4 +236,10 @@ return [
         'var_page'  => 'page',
         'list_rows' => 15,
     ],
+
+    //JXX - OA 自定义
+    'custom' => [
+        'upload_full_path' => ROOT_PATH . 'uploads/',
+        'upload_path' => '/uploads/',
+    ],
 ];

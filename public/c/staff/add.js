@@ -14,16 +14,29 @@ define(['staff', 'role', 'text!v/staff/add.html'], function(staffModel, roleMode
                     alert_msg('密码和确认密码不一致');
                     return false;
                 }
-                var arr = form.serializeArray();
-                var postData = {
-                    gender : $('#input-gender .am-active').find('input[name="gender"]').val()
-                };
-                for(var i in arr){
-                    postData[arr[i].name] = arr[i].value;
-                }
-                staffModel.addStaff(postData, function(res){
+                form.find('input[name="access_token"]').val($.cookie('access_token'));
+                staffModel.addStaff(new FormData(form[0]), function(res){
                     alert_msg(res.msg, '', '#!staff/list');
                 });
+            });
+            
+            //头像预览图
+            $glbTpl.delegate('input[name="avatar"]', 'change', function(){
+                var $file = $(this);
+                var fileObj = $file[0];
+                var windowURL = window.URL || window.webkitURL;
+                var dataURL;
+                var $img = $('#avatar_img');
+                if(fileObj && fileObj.files && fileObj.files[0]){
+                    dataURL = windowURL.createObjectURL(fileObj.files[0]);
+                    $img.attr('src',dataURL);
+                }else{
+                    dataURL = $file.val();
+                    var imgObj = document.getElementById('avatar_img');
+                    imgObj.style.filter = "progid:DXImageTransform.Microsoft.AlphaImageLoader(sizingMethod=scale)";
+                    imgObj.filters.item("DXImageTransform.Microsoft.AlphaImageLoader").src = dataURL;
+                }
+                $img.show();
             });
 		}
 	};

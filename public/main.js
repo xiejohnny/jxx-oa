@@ -67,12 +67,13 @@ require(['jquery', 'jquery-cookie', 'template', 'common', 'staff'], function(jqu
          * @param postData 请求参数
          * @param cbfn 回调函数
          * @param method 请求方法 默认POST
+         * @param ext 扩展AJAX参数
          * @author jxx
          * @time 2017/4/2
          */
-        doAjax : function (url, postData, cbfn, method) {
+        doAjax : function (url, postData, cbfn, method, ext) {
             method = method || 'POST';
-            $.ajax({
+            var params = {
                 url: url,
                 type: method,
                 data: postData,
@@ -80,7 +81,11 @@ require(['jquery', 'jquery-cookie', 'template', 'common', 'staff'], function(jqu
                 success: function (res) {
                     cbfn(res);
                 }
-            });
+            };
+            if(ext){
+                params = $.extend(params, ext);
+            }
+            $.ajax(params);
         }
     });
     

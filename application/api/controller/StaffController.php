@@ -39,6 +39,7 @@ class StaffController extends BaseController
         $info = Users::getInfoById($postData['id']);
 
         if($info){
+            if($info['avatar']) $info['avatar'] = config('custom.upload_path') . $info['avatar'];
             output_json(20000, '', $info);
         }
         output_json(20400, '没有数据');
@@ -52,12 +53,24 @@ class StaffController extends BaseController
     public function add()
     {
         $postData = request()->post();
+        $file = request()->file('avatar');
         //请求参数验证
         $validate = new StaffValidate($postData);
         $result = $validate->scene('add')->check($postData);
         if(true !== $result)
         {
             output_json(40000, $validate->getError());
+        }
+        if($file){
+            //允许5M图片
+            $info = $file->validate(['size'=>1024*1024*5,'ext'=>'jpg,png,gif'])->move(config('custom.upload_full_path'));
+            if($info){
+                // 成功上传后 获取上传信息
+                $postData['avatar'] = str_replace('\\', '/', $info->getSaveName());
+            }else{
+                // 上传失败获取错误信息
+                output_json(40000, $file->getError());
+            }
         }
         if(!$postData['nickname']) $postData['nickname'] = $postData['username'];
         $postData['salt'] = create_salt();
@@ -80,12 +93,24 @@ class StaffController extends BaseController
     public function edit()
     {
         $postData = request()->post();
+        $file = request()->file('avatar');
         //请求参数验证
         $validate = new StaffValidate($postData);
         $result = $validate->scene('edit')->check($postData);
         if(true !== $result)
         {
             output_json(40000, $validate->getError());
+        }
+        if($file){
+            //允许5M图片
+            $info = $file->validate(['size'=>1024*1024*5,'ext'=>'jpg,png,gif'])->move(config('custom.upload_full_path'));
+            if($info){
+                // 成功上传后 获取上传信息
+                $postData['avatar'] = str_replace('\\', '/', $info->getSaveName());
+            }else{
+                // 上传失败获取错误信息
+                output_json(40000, $file->getError());
+            }
         }
         //修改密码
         if($postData['password']){

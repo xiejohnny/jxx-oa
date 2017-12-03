@@ -18,23 +18,3 @@ if(request()->method() == 'POST'){
         $uriArr[1] => ['api/'.$uriArr[0].'Controller/'.$uriArr[1]],
     ]);
 }
-
-
-
-//Route::miss('public/miss');
-
-//前端
-/*
-if(request()->method() == 'GET') {
-    Route::rule('/$', function () {
-        include APP_PATH . 'front/view/index.html';
-        exit;
-    });
-    Route::rule(':name$', function ($name) {
-        load_view($name);
-    });
-    Route::rule(':path/:name$', function ($path, $name) {
-        load_view($path.'/'.$name);
-    });
-}
-*/
