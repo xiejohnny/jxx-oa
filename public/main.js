@@ -10,6 +10,7 @@ require.config({
         'staff':['/m/staff'],
         'role':['/m/role'],
         'menu':['/m/menu'],
+        'office':['/m/office'],
         'pagination':['/assets/js/amazeui.page'],
         'ztree':['/assets/js/jquery.ztree.all.min']
 	},

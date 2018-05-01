@@ -8,6 +8,7 @@ define(['staff', 'pagination', 'text!v/staff/list.html'], function(staffModel, p
             {
                 var page = $glbUrlParams['page'] ? $glbUrlParams['page'] : 1;
                 var keyword = $glbUrlParams['keyword'] || '';
+                if(keyword) keyword = decodeURI(keyword);
                 staffModel.getStaffList({page:page,keyword:keyword}, function(data){
                     //按钮权限
                     var editBtn = check_action_power('staff_edit');

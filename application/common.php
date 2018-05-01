@@ -40,7 +40,7 @@ function output_json($code=-1, $msg='', $data=[])
  */
 function check_password($password='', $salt='', $dbPassword='')
 {
-    return md5(md5(md5($password).$salt).$salt) == $dbPassword ? true : false;
+    return create_password($password, $salt) == $dbPassword ? true : false;
 }
 
 /**

@@ -20,7 +20,7 @@ class BaseModel extends Model
      * @author jxx
      * @time 2017/4/2
      */
-	static public function getRow($where=[])
+	public static function getRow($where=[])
     {
         $class = static::class;
         $object = new $class();
@@ -39,7 +39,7 @@ class BaseModel extends Model
      * @author jxx
      * @time 2017/4/2
      */
-	static public function getRowById($id=0)
+	public static function getRowById($id=0)
     {
         $row = self::getRow(['id' => $id]);
         return $row;
@@ -54,7 +54,7 @@ class BaseModel extends Model
      * @author jxx
      * @time 2017/4/2
      */
-    static public function getList($where=[], $page=0, $pagesize=10)
+    public static function getList($where=[], $page=0, $pagesize=10)
     {
         $class = static::class;
         $object = new $class();
@@ -62,10 +62,15 @@ class BaseModel extends Model
         if(isset($object->baseWhere) && $object->baseWhere){
             $where = array_merge($object->baseWhere, $where);
         }
+        if(isset($where['order'])){
+            $data = $data->order($where['order']);
+            unset($where['order']);
+        }else{
+            $data = $data->order('id DESC');
+        }
         if($where){
             $data = $data->where($where);
         }
-        $data = $data->order('id DESC');
         if($page > 0){
             $data = $data->paginate(['page' => $page, 'list_rows' => $pagesize]);
             if($data) $data = $data->toArray();
@@ -82,7 +87,7 @@ class BaseModel extends Model
      * @author jxx
      * @time 2017/6/10
      */
-    static public function addRow($postData=[])
+    public static function addRow($postData=[])
     {
         $postData['created_at'] = date('Y-m-d H:i:s');
         $postData['updated_at'] = date('Y-m-d H:i:s');
@@ -100,7 +105,7 @@ class BaseModel extends Model
      * @author jxx
      * @time 2017/6/10
      */
-    static public function updateRowById($id=0, $postData=[])
+    public static function updateRowById($id=0, $postData=[])
     {
         $postData['updated_at'] = date('Y-m-d H:i:s');
         $class = static::class;
@@ -117,7 +122,7 @@ class BaseModel extends Model
      * @author jxx
      * @time 2017/10/4
      */
-    static public function updateRow($where=[], $postData=[])
+    public static function updateRow($where=[], $postData=[])
     {
         $postData['updated_at'] = date('Y-m-d H:i:s');
         $class = static::class;
