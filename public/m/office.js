@@ -6,8 +6,7 @@ define([], function()
              * 获取用品列表
              * @param postData 参数
              * @param cbfn 回调函数
-             * @author jxx
-             * @time 2018/5/1
+             * @author jxx 2018/5/1
              */
             getSuppliesList : function(postData, cbfn)
             {
@@ -21,15 +20,14 @@ define([], function()
                 });
             },
             /**
-             * 获取员工信息
+             * 获取用品信息
              * @param id 员工ID
              * @param cbfn 回调函数
-             * @author jxx
-             * @time 2017/7/29
+             * @author jxx 2018/5/19
              */
-            getStaffInfo : function(id, cbfn)
+            getSuppliesInfo : function(id, cbfn)
             {
-                $.doAjax('/staff/getInfo', {access_token:$.cookie('access_token'),id:id}, function(res){
+                $.doAjax('/office/getSuppliesInfo', {access_token:$.cookie('access_token'),id:id}, function(res){
                     if(res.code !== 20000){
                         alert_msg(res.msg);
                     }else{
@@ -38,15 +36,14 @@ define([], function()
                 });
             },
             /**
-             * 修改员工信息
+             * 修改用品信息
              * @param postData 提交参数
              * @param cbfn 回调函数
-             * @author jxx
-             * @time 2017/7/29
+             * @author jxx 2018/5/19
              */
-            updateStaffInfo : function(postData, cbfn)
+            updateSuppliesInfo : function(postData, cbfn)
             {
-                $.doAjax('/staff/edit', postData, function(res){
+                $.doAjax('/office/suppliesEdit', postData, function(res){
                     if(res.code !== 20000){
                         alert_msg(res.msg);
                     }else{

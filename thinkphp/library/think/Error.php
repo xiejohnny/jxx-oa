@@ -27,6 +27,7 @@ class Error
         //@author jxx 2017/4/2 不提示NOTICE警告
 //        error_reporting(E_ALL);
         error_reporting(E_ALL ^ E_NOTICE);
+        ini_set('display_errors', 'On');
         set_error_handler([__CLASS__, 'appError']);
         set_exception_handler([__CLASS__, 'appException']);
         register_shutdown_function([__CLASS__, 'appShutdown']);

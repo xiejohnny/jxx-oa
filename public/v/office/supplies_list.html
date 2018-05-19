@@ -44,6 +44,9 @@
                     <tr>
                         <th>ID</th>
                         <th>名称</th>
+                        <th>描述</th>
+                        <th>库存</th>
+                        <th>单位</th>
                         <th class="table-set">操作</th>
                     </tr>
                     </thead>
@@ -52,6 +55,9 @@
                     <tr>
                         <td>{{value.id}}</td>
                         <td><a href="#!id={{value.id}}!office/supplies_edit">{{value.name}}</a></td>
+                        <td>{{value.desc}}</td>
+                        <td>{{value.num}}</td>
+                        <td>{{value.unit}}</td>
                         <td>
                             <div class="am-btn-toolbar">
                                 <div class="am-btn-group am-btn-group-xs">

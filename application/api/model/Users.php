@@ -27,7 +27,6 @@ class Users extends BaseModel
         return $row;
     }
 
-
     /**
      * 根据用户ID获取用户信息
      * @param int $userid 用户ID
